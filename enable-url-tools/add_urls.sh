@@ -50,11 +50,12 @@ cd /home/dviewers/www/carcas/carcas-models/
 # enable-url-tools/temp_models_missing_urls.csv is the file with the model names
 # 'https://3dviewer.sites.carleton.edu/carcas/carcas-models/{model_no_spaces}' is the link we want to add (replace {model_no_spaces} with an entry from the file, ie one of the files missing a URL)
 # 'model/{model}' is the file we want to add the link to (replace {model} with entry from file)
-datalad addurls enable-url-tools/temp_models_missing_urls.csv 'https://3dviewer.sites.carleton.edu/carcas/carcas-models/models/{model_no_spaces}' 'model/{model}' --message "Adding URLs for models so that they can be downloaded from the web from the server"
+datalad addurls enable-url-tools/temp_models_missing_urls.csv 'https://3dviewer.sites.carleton.edu/carcas/carcas-models/models/{model_no_spaces}' 'models/{model}' --message "Adding URLs for models so that they can be downloaded from the web from the server"
 
 # Clean up and push
 echo "Deleting temporary files"
 rm /home/dviewers/www/carcas/carcas-models/enable-url-tools/temp_models_missing_urls.csv
+datalad save -m "Remove temporary file used to record models missing URLs"
 
 echo "Push to Github"
 datalad push --to github
