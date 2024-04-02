@@ -40,17 +40,17 @@ echo "Adding the URLs for these models"
 # create a temporary text file with the model names 
 cd /home/dviewers/www/carcas/carcas-models/enable-url-tools
 # Print "model" to the top of the file
-echo "model" > temp_models_missing_urls.csv
+echo "model,model_no_spaces" > temp_models_missing_urls.csv
 # Add each element of "models_missing_urls" to the file on a new line
 for model in "${models_missing_urls[@]}"; do
-  echo "$model" >> temp_models_missing_urls.csv
+  echo "$model,${model// /%20}" >> temp_models_missing_urls.csv
 done
 
 cd /home/dviewers/www/carcas/carcas-models/
 # enable-url-tools/temp_models_missing_urls.csv is the file with the model names
-# 'https://3dviewer.sites.carleton.edu/carcas/carcas-models/{model}' is the link we want to add (replace {model} with an entry from the file, ie one of the files missing a URL)
-# 'model/{model}' is the file we want to add the link to
-datalad addurls enable-url-tools/temp_models_missing_urls.csv 'https://3dviewer.sites.carleton.edu/carcas/carcas-models/{model}' 'model/{model}'
+# 'https://3dviewer.sites.carleton.edu/carcas/carcas-models/{model_no_spaces}' is the link we want to add (replace {model_no_spaces} with an entry from the file, ie one of the files missing a URL)
+# 'model/{model}' is the file we want to add the link to (replace {model} with entry from file)
+datalad addurls enable-url-tools/temp_models_missing_urls.csv 'https://3dviewer.sites.carleton.edu/carcas/carcas-models/{model_no_spaces}' 'model/{model}' --message "Adding URLs for models so that they can be downloaded from the web from the server"
 
 
 
