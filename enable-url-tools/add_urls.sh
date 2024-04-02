@@ -22,8 +22,8 @@ do
     git_annex_output=$(git annex whereis "$file")
     # echo $git_annex_output
 
-    # Check if the output contains the string "url"
-    if [[ $git_annex_output != *"url"* ]]; then
+    # Check if the output contains the string "web"
+    if [[ $git_annex_output != *"web"* ]]; then
         # If not found, add the file name to the array
         models_missing_urls+=("$file")
     fi
@@ -52,6 +52,12 @@ cd /home/dviewers/www/carcas/carcas-models/
 # 'model/{model}' is the file we want to add the link to (replace {model} with entry from file)
 datalad addurls enable-url-tools/temp_models_missing_urls.csv 'https://3dviewer.sites.carleton.edu/carcas/carcas-models/models/{model_no_spaces}' 'model/{model}' --message "Adding URLs for models so that they can be downloaded from the web from the server"
 
+# Clean up and push
+echo "Deleting temporary files"
+rm /home/dviewers/www/carcas/carcas-models/enable-url-tools/temp_models_missing_urls.csv
+
+echo "Push to Github"
+datalad push --to github
 
 
 
